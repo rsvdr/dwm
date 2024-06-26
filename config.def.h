@@ -82,8 +82,9 @@ static const char *dmenubibtex[] = { "dmenu_bibtex", "-fn", dmenufont, "-nb", co
 static const char *dmenussh[] = { "dmenu_ssh", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_silver, "-sf", col_gray1, NULL };
 static const char *dmenusysact[] = { "dmenu_sysact", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_silver, "-sf", col_gray1, NULL };
 static const char *dmenucharmap[] = { "dmenu_charmap", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_silver, "-sf", col_gray1, NULL };
+static const char *dmenuclipcat[] = { "/usr/bin/clipcat-menu", "--dmenu-extra-arguments", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_silver, "-sf", col_gray1, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *termcmdfloat[]  = { "st","-c","floating","-g","100x25+0-200", NULL };
+static const char *termcmdfloat[]  = { "st","-c","floating","-g","100x22+0-200", NULL };
 
 #include <X11/XF86keysym.h>
 static Key keys[] = {
@@ -92,15 +93,15 @@ static Key keys[] = {
 	{ MODKEY,                       XK_s,      spawn,          {.v = dmenubrowserseach } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenulauncher } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = dmenuoneliners } },
-	{ MODKEY,                       XK_x,      spawn,          {.v = dmenussh } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenuopenfile } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenubibtex } },
 	{ MODKEY,                       XK_End,    spawn,          {.v = dmenusysact } },
 	{ MODKEY|ShiftMask,             XK_k,      spawn,          {.v = dmenucharmap } },
+	{ MODKEY,             XK_c,      spawn,          SHCMD("clipcat-menu --dmenu-menu-length=5") },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ ControlMask|AltMask,          XK_t,      spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmdfloat } },
-	{ MODKEY|Mod1Mask,              XK_b,      togglebar,      {0} },
+	{ MODKEY,              XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_m,      incnmaster,     {.i = +1 } },
@@ -145,13 +146,9 @@ static Key keys[] = {
     // Brightness
 	{ 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("change-screen-brightness -inc 5") },
 	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("change-screen-brightness -dec 5") },
-	{ MODKEY,                       XK_b,      spawn,      SHCMD("change-external-brightness -0.1")  },
-	{ MODKEY|ShiftMask,             XK_b,      spawn,      SHCMD("change-external-brightness +0.1")  },
     // System
 	{ 0, XF86XK_PowerOff,		    spawn,		SHCMD("sysact") },
-	{ MODKEY,                       XK_Print,	spawn,	   SHCMD("flameshot gui") },
-	{ 0,                            XF86XK_WebCam,	spawn, SHCMD("mpv av://v4l2:/dev/video0 --x11-name='webcam' --script-opts=osc-visibility=never --profile=low-latency --untimed --vf=hflip --brightness=-5 --contrast=20 --saturation=-5 --screenshot-directory=$HOME/Pictures/Screenshots") },
-	{ 0,                            XF86XK_WebCam,	spawn, SHCMD("~/.dotfiles/scripts/setup/dp1_projector.sh") },
+	{ 0,                            XK_Print,	spawn,	   SHCMD("flameshot gui") },
 };
 
 /* button definitions */
